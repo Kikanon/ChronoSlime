@@ -1,0 +1,83 @@
+
+gameplay.png
+size: 1024, 256
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+button
+  rotate: false
+  xy: 2, 39
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+obstacle
+  rotate: false
+  xy: 2, 39
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+enemy
+  rotate: false
+  xy: 132, 39
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+player
+  rotate: false
+  xy: 262, 39
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: 0
+player
+  rotate: false
+  xy: 392, 39
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: 1
+player
+  rotate: false
+  xy: 522, 39
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: 2
+player
+  rotate: false
+  xy: 652, 39
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: 3
+projectile
+  rotate: false
+  xy: 782, 39
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+render_pixel
+  rotate: false
+  xy: 2, 2
+  size: 1, 1
+  orig: 1, 1
+  offset: 0, 0
+  index: -1
+tile_background
+  rotate: false
+  xy: 2, 5
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+tile_obstacle
+  rotate: false
+  xy: 912, 135
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1

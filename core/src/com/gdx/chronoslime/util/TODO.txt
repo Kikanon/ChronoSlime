@@ -1,0 +1,17 @@
+- enemy spawning ✔
+- enemy behaviour
+- different projectile movements
+- different despawn systems (health, position)
+- enemy queue ✔
+- options (difficulty, something...)
+- pause game
+- json levels ✔
+- json projectiles ✔
+- json items ✔
+- items pickup
+- score
+- particles ✔ ️
+- leaderboard
+- animated sprites ✔
+- out of bounds reset ✔
+- object collisions ✔

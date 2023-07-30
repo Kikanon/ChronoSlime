@@ -1,0 +1,50 @@
+{
+  "enemyTypes": [
+    {
+      "health": 20,
+      "damage": 20,
+      "size": 20,
+      "speed": 1,
+      "spriteName": "enemy"
+    },
+    {
+      "health": 20,
+      "damage": 20,
+      "size": 20,
+      "speed": 6,
+      "spriteName": "enemy"
+    }
+  ],
+  "levels": [
+    {
+      "startTimeMils": 5000,
+      "waves": [
+        {
+          "levelTimeOffset": 1000,
+          "enemyNum": 200,
+          "enemyTypeNum": 0
+        },
+        {
+          "levelTimeOffset": 6000,
+          "enemyNum": 1,
+          "enemyTypeNum": 0
+        }
+      ]
+    },
+    {
+      "startTimeMils": 60000000,
+      "waves": [
+        {
+          "levelTimeOffset": 1000,
+          "enemyNum": 5,
+          "enemyTypeNum": 0
+        },
+        {
+          "levelTimeOffset": 6000,
+          "enemyNum": 5,
+          "enemyTypeNum": 0
+        }
+      ]
+    }
+  ]
+}
