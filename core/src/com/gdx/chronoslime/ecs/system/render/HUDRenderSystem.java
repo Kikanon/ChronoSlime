@@ -5,7 +5,10 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.gdx.chronoslime.config.GameConfig;
 import com.gdx.chronoslime.managers.GameManager;
 
 public class HUDRenderSystem extends EntitySystem {
@@ -15,14 +18,23 @@ public class HUDRenderSystem extends EntitySystem {
     private final SpriteBatch batch;
     private final Viewport hudViewport;
     private final BitmapFont font;
+    private final Skin skin;
     private final GlyphLayout layout = new GlyphLayout();
+    ProgressBar bar;
 
-    public HUDRenderSystem(SpriteBatch batch, Viewport hudViewport, BitmapFont font) {
+    public HUDRenderSystem(SpriteBatch batch, Viewport hudViewport, BitmapFont font, Skin skin) {
         super(10);
         this.batch = batch;
         this.hudViewport = hudViewport;
         this.font = font;
+        this.skin = skin;
+        bar = new ProgressBar(0f, 100f, 1f, false, skin);
+        bar.setWidth(GameConfig.W_WIDTH - 20f);
+        bar.setHeight(20f);
+        bar.setPosition(10f, GameConfig.W_HEIGHT - bar.getHeight() - 10f);
+
     }
+
 
     @Override
     public void update(float deltaTime) {
@@ -55,6 +67,8 @@ public class HUDRenderSystem extends EntitySystem {
 
             font.draw(batch, layout, endX, endY);
         }
+        bar.setValue(GameManager.INSTANCE.score);
+        bar.draw(batch, 1f);
 
         batch.end();
     }

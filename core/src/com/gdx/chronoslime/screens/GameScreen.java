@@ -48,6 +48,7 @@ public class GameScreen extends ScreenAdapter {
     private final AssetManager assetManager;
     private final SpriteBatch batch;
     private final Stage stage;
+    private final Skin skin;
     TiledMap map;
     private PooledEngine engine;
     private Viewport viewport;
@@ -62,7 +63,7 @@ public class GameScreen extends ScreenAdapter {
         GameManager.INSTANCE.reset();
 
         stage = new Stage();
-        Skin skin = assetManager.get(AssetDescriptors.UI_SKIN);
+        skin = assetManager.get(AssetDescriptors.UI_SKIN);
 
         Gdx.input.setInputProcessor(stage);
 
@@ -128,7 +129,7 @@ public class GameScreen extends ScreenAdapter {
 
         engine.addSystem(new RenderSystem(batch, viewport));
         engine.addSystem(new DebugRenderSystem(batch, assetManager)); // debug only
-        engine.addSystem(new HUDRenderSystem(batch, hudViewport, font));
+        engine.addSystem(new HUDRenderSystem(batch, hudViewport, font, skin));
 
         engine.addSystem(new ParticleCleanupSystem());
         engine.addSystem(new InteractableRefreshSystem());

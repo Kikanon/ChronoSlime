@@ -31,6 +31,8 @@ public class GameManager {
     public long minutes = 0;
     public long seconds = 0;
 
+    public float score = 0;
+
     // game data variables
     public boolean DEBUG;
     public float W_HEIGHT;
@@ -94,6 +96,7 @@ public class GameManager {
     public void reset() {
         enemyQueue.clear();
         elapsedTime = 0;
+        score = 0;
         readSettings();
 
         W_HEIGHT = GameConfig.W_HEIGHT;

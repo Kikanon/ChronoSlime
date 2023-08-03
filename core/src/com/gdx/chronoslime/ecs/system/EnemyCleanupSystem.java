@@ -55,6 +55,7 @@ public class EnemyCleanupSystem extends EntitySystem {
 
             if (enemyComponent.health < 1) {
                 factory.createParticle(positionComponent);
+                GameManager.INSTANCE.score += 1;
                 getEngine().removeEntity(enemy);
                 continue;
             }
