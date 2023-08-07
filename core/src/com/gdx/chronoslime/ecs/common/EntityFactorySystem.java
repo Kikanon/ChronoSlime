@@ -24,6 +24,7 @@ import com.gdx.chronoslime.ecs.component.common.BoundsComponent;
 import com.gdx.chronoslime.ecs.component.common.GravityComponent;
 import com.gdx.chronoslime.ecs.component.common.ParticleComponent;
 import com.gdx.chronoslime.ecs.component.common.PositionComponent;
+import com.gdx.chronoslime.ecs.component.common.RelativePositionComponent;
 import com.gdx.chronoslime.ecs.component.common.SizeComponent;
 import com.gdx.chronoslime.ecs.component.common.TextureComponent;
 import com.gdx.chronoslime.ecs.component.common.VelocityComponent;
@@ -195,6 +196,47 @@ public class EntityFactorySystem extends EntitySystem {
         entity.add(interactableComponent);
 
         GameManager.INSTANCE.enemyQueue.addLast(entity);
+
+        return entity;
+    }
+
+    public Entity createRelativeProjectile(int projectileId) {
+        PositionComponent position = engine.createComponent(PositionComponent.class);
+        RelativePositionComponent relative = engine.createComponent(RelativePositionComponent.class);
+
+        SizeComponent size = engine.createComponent(SizeComponent.class);
+        BoundsComponent bounds = engine.createComponent(BoundsComponent.class);
+        TextureComponent texture = engine.createComponent(TextureComponent.class);
+        ZOrderComponent zOrder = engine.createComponent(ZOrderComponent.class);
+        ProjectileComponent projectileComponent = engine.createComponent(ProjectileComponent.class);
+        GravityComponent gravityComponent = engine.createComponent(GravityComponent.class);
+
+        ProjectileType type = GameplayConfig.projectileTypes[projectileId];
+        projectileComponent.damage = type.damage;
+        size.rectangle(type.size);
+
+        relative.rDistance = 50f;
+        relative.speed = 3f;
+        relative.direction = false;
+
+        bounds.setPosition(position.x, position.y);
+        bounds.rectangle(size.width, size.height);
+
+        texture.texture = gamePlayAtlas.findRegion(type.spriteName);
+        zOrder.z = ZOrder.PROJECTILE.getZ();
+
+
+        Entity entity = engine.createEntity();
+        entity.add(position);
+        entity.add(relative);
+        entity.add(size);
+        entity.add(bounds);
+        entity.add(zOrder);
+        entity.add(texture);
+        entity.add(projectileComponent);
+        entity.add(gravityComponent);
+
+        engine.addEntity(entity);
 
         return entity;
     }

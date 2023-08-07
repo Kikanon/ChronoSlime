@@ -27,7 +27,7 @@ public class CollisionSystem extends EntitySystem {
     private static final Family FAMILY = Family.all(PlayerComponent.class, BoundsComponent.class).get();
     private static final Family FAMILY_OBSTACLE = Family.all(ObstacleComponent.class, BoundsComponent.class).get();
     private static final Family FAMILY_ENEMY = Family.all(EnemyComponent.class, BoundsComponent.class, VelocityComponent.class, PositionComponent.class).get();
-    private static final Family FAMILY_PROJECTILE = Family.all(ProjectileComponent.class, BoundsComponent.class, VelocityComponent.class, PositionComponent.class).get();
+    private static final Family FAMILY_PROJECTILE = Family.all(ProjectileComponent.class, BoundsComponent.class).get();
 
     private EntityFactorySystem factory;
     private SoundSystem soundSystem;

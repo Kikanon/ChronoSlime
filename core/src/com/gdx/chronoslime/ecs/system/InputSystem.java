@@ -62,10 +62,14 @@ public class InputSystem extends IteratingSystem {
         } else velocity.yVelocity = 0;
 
         if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
-            factory.createProjectile(position, velocity, 0, 0);
-            factory.createProjectile(position, velocity, 90, 0);
-            factory.createProjectile(position, velocity, 180, 0);
-            factory.createProjectile(position, velocity, 270, 0);
+//            factory.createProjectile(position, velocity, 0, 0);
+//            factory.createProjectile(position, velocity, 90, 0);
+//            factory.createProjectile(position, velocity, 180, 0);
+//            factory.createProjectile(position, velocity, 270, 0);
+
+            factory.createRelativeProjectile(0);
+
+
 //            factory.createParticle(position);
 
 //            EnemyType type = new EnemyType();

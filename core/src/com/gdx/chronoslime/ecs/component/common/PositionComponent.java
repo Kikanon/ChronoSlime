@@ -15,6 +15,11 @@ public class PositionComponent implements Component, Pool.Poolable {
         this.r = pos.r;
     }
 
+    public void set(Vector2 vec) {
+        this.x = vec.x;
+        this.y = vec.y;
+    }
+
     public Vector2 getVector2() {
         return new Vector2(x, y);
     }

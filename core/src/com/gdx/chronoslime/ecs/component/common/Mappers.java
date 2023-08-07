@@ -40,6 +40,9 @@ public final class Mappers {
     public static final ComponentMapper<ProjectileComponent> PROJECTILE =
             ComponentMapper.getFor(ProjectileComponent.class);
 
+    public static final ComponentMapper<RelativePositionComponent> RELATIVE_POSITION =
+            ComponentMapper.getFor(RelativePositionComponent.class);
+
     private Mappers() {
     }
 }
