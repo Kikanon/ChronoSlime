@@ -1,15 +1,15 @@
 package com.gdx.chronoslime.ecs.common.types;
 
-public class ProjectileType {
+public class ProjectileType extends ItemType {
     public float speed;
     public float damage;
     public float size;
     public String spriteName;
-    public String itemSpriteName;
 
-    public ProjectileType(String spriteName, String itemSpriteName, float speed, float damage, float size) {
+    public ProjectileType(String spriteName, String itemSpriteName, String itemName, String itemDescription, float speed, float damage, float size) {
+        super(itemSpriteName, itemName, itemDescription);
+
         this.spriteName = spriteName;
-        this.itemSpriteName = itemSpriteName;
         this.speed = speed;
         this.damage = damage;
         this.size = size;

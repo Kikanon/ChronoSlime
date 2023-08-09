@@ -3,15 +3,20 @@ package com.gdx.chronoslime.managers;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonWriter;
 import com.badlogic.gdx.utils.Queue;
+import com.gdx.chronoslime.assets.GameplayConfig;
 import com.gdx.chronoslime.config.GameConfig;
 import com.gdx.chronoslime.ecs.common.types.EnemyType;
 import com.gdx.chronoslime.ecs.common.types.GameDataType;
+import com.gdx.chronoslime.ecs.common.types.ItemType;
 import com.gdx.chronoslime.ecs.common.types.LevelType;
 import com.gdx.chronoslime.ecs.common.types.Wave;
+import com.gdx.chronoslime.screens.GameState;
 
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 public class GameManager {
@@ -20,19 +25,18 @@ public class GameManager {
     public static final GameManager INSTANCE = new GameManager();
     public final Queue<Entity> enemyQueue = new Queue<Entity>();
     private final Json json = new Json();
-    public GameDataType gameData = null;
-
-
+    private final Array<ItemType> obtainableItems = new Array<>();
+    private final Random random = new Random();
     // variables
-
+    public GameDataType gameData = null;
+    public GameState gameState = GameState.PLAY;
     public float camera_x = 0;
     public float camera_y = 0;
     public long elapsedTime = 0;
     public long minutes = 0;
     public long seconds = 0;
-
+    public Array<ItemType> playerItems = new Array<>();
     public float score = 0;
-
     // game data variables
     public boolean DEBUG;
     public float W_HEIGHT;
@@ -40,6 +44,8 @@ public class GameManager {
 
 
     private GameManager() {
+        obtainableItems.addAll(GameplayConfig.availableProjectiles);
+        obtainableItems.addAll(GameplayConfig.availableItems);
     }
 
     public void resizeWorld(float scale) {
@@ -55,7 +61,6 @@ public class GameManager {
     public float playerSpeed() {
         return 5.0f;
     }
-
 
     public void writeSettings() {
         FileHandle outFile = Gdx.files.absolute("J:\\Projects\\6.Semester - Diploma\\ChronoSlime\\assets\\data\\outData.json");
@@ -91,12 +96,40 @@ public class GameManager {
         elapsedTime += 1000 * deltaTime; // seconds to nanoseconds
         minutes = TimeUnit.MILLISECONDS.toMinutes(elapsedTime);
         seconds = TimeUnit.MILLISECONDS.toSeconds(elapsedTime) % 60;
+        if (score > 100) {
+            onLvlUp();
+        }
+    }
+
+    public void onLvlUp() {
+        gameState = GameState.LVL_UP;
+
+        Array<ItemType> validItems = new Array<ItemType>();
+        Array<ItemType> options = new Array<ItemType>();
+
+        for (ItemType item : playerItems) {
+            if (item.level < item.maxLevel) validItems.add(item);
+        }
+        // could be better
+        validItems.addAll(obtainableItems);
+
+        while (validItems.notEmpty() && options.size < 4) {
+            int randomInt = random.nextInt(validItems.size);
+            options.add(validItems.get(randomInt));
+            validItems.removeIndex(randomInt);
+        }
+        System.out.println(options);
     }
 
     public void reset() {
         enemyQueue.clear();
         elapsedTime = 0;
         score = 0;
+        playerItems.clear();
+        obtainableItems.clear();
+        obtainableItems.addAll(GameplayConfig.availableProjectiles);
+        obtainableItems.addAll(GameplayConfig.availableItems);
+        gameState = GameState.PLAY;
         readSettings();
 
         W_HEIGHT = GameConfig.W_HEIGHT;

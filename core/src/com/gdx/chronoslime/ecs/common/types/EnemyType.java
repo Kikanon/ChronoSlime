@@ -5,6 +5,7 @@ public class EnemyType {
     public float damage;
     public float size;
     public float speed;
+    public float score;
     public String spriteName;
 }
 

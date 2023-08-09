@@ -105,7 +105,7 @@ public class EntityFactorySystem extends EntitySystem {
         ProjectileComponent projectileComponent = engine.createComponent(ProjectileComponent.class);
         GravityComponent gravityComponent = engine.createComponent(GravityComponent.class);
 
-        ProjectileType type = GameplayConfig.projectileTypes[projectileId];
+        ProjectileType type = GameplayConfig.availableProjectiles.get(projectileId);
         projectileComponent.damage = type.damage;
         size.rectangle(type.size);
 
@@ -211,7 +211,7 @@ public class EntityFactorySystem extends EntitySystem {
         ProjectileComponent projectileComponent = engine.createComponent(ProjectileComponent.class);
         GravityComponent gravityComponent = engine.createComponent(GravityComponent.class);
 
-        ProjectileType type = GameplayConfig.projectileTypes[projectileId];
+        ProjectileType type = GameplayConfig.availableProjectiles.get(projectileId);
         projectileComponent.damage = type.damage;
         size.rectangle(type.size);
 

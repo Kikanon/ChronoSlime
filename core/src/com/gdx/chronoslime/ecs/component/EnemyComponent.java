@@ -11,11 +11,14 @@ public class EnemyComponent implements Component, Pool.Poolable {
     public float speed;
     public String spriteName;
 
+    public float score;
+
     public void init(EnemyType type) {
         health = type.health;
         damage = type.damage;
         size = type.size;
         speed = type.speed;
+        score = type.score;
         spriteName = type.spriteName;
     }
 

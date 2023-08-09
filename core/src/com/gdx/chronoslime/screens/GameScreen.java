@@ -47,14 +47,14 @@ public class GameScreen extends ScreenAdapter {
     private final ChronoSlimeGame game;
     private final AssetManager assetManager;
     private final SpriteBatch batch;
-    private final Stage stage;
+    private final Stage pauseStage;
     private final Skin skin;
     TiledMap map;
     private PooledEngine engine;
     private Viewport viewport;
     private Viewport hudViewport;
     private ShapeRenderer renderer;
-    private boolean paused = false;
+
 
     public GameScreen(final ChronoSlimeGame game) {
         this.game = game;
@@ -62,10 +62,10 @@ public class GameScreen extends ScreenAdapter {
         batch = game.getBatch();
         GameManager.INSTANCE.reset();
 
-        stage = new Stage();
+        pauseStage = new Stage();
         skin = assetManager.get(AssetDescriptors.UI_SKIN);
 
-        Gdx.input.setInputProcessor(stage);
+        Gdx.input.setInputProcessor(null);
 
         TextButton button = new TextButton("Resume", skin);
         TextButton button2 = new TextButton("Quit", skin);
@@ -78,7 +78,8 @@ public class GameScreen extends ScreenAdapter {
         button.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                paused = false;
+                GameManager.INSTANCE.gameState = GameState.PLAY;
+                Gdx.input.setInputProcessor(null);
                 return true;
             }
         });
@@ -91,8 +92,8 @@ public class GameScreen extends ScreenAdapter {
             }
         });
 
-        stage.addActor(button);
-        stage.addActor(button2);
+        pauseStage.addActor(button);
+        pauseStage.addActor(button2);
 
     }
 
@@ -141,22 +142,31 @@ public class GameScreen extends ScreenAdapter {
     public void render(float delta) {
 
         if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
-            paused = true;
+            GameManager.INSTANCE.gameState = GameState.PAUSED;
+            Gdx.input.setInputProcessor(pauseStage);
         }
         if (Gdx.input.isKeyJustPressed(Input.Keys.O)) {
             GameManager.INSTANCE.DEBUG = !GameManager.INSTANCE.DEBUG;
             engine.getSystem(DebugRenderSystem.class).setProcessing(GameManager.INSTANCE.DEBUG);
         }
 
-
-        if (paused) {
-            engine.getSystem(RenderSystem.class).update(0);
-            stage.act();
-            stage.draw();
-        } else {
-            GdxUtils.clearScreen();
-            GameManager.INSTANCE.update(delta);
-            engine.update(delta);
+        switch (GameManager.INSTANCE.gameState) {
+            case PLAY: {
+                GdxUtils.clearScreen();
+                GameManager.INSTANCE.update(delta);
+                engine.update(delta);
+                break;
+            }
+            case LVL_UP: {
+                engine.getSystem(RenderSystem.class).update(0);
+                break;
+            }
+            case PAUSED: {
+                engine.getSystem(RenderSystem.class).update(0);
+                pauseStage.act();
+                pauseStage.draw();
+                break;
+            }
         }
     }
 
@@ -164,10 +174,10 @@ public class GameScreen extends ScreenAdapter {
     public void resize(int width, int height) {
         viewport.update(width, height, true);
         hudViewport.update(width, height, true);
-        stage.getViewport().update(width, height, true);
+        pauseStage.getViewport().update(width, height, true);
         viewport.apply();
         hudViewport.apply();
-        stage.getViewport().apply();
+        pauseStage.getViewport().apply();
     }
 
     @Override
