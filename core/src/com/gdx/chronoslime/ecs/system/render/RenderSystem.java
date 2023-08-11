@@ -13,6 +13,7 @@ import com.gdx.chronoslime.ecs.component.common.ParticleComponent;
 import com.gdx.chronoslime.ecs.component.common.PositionComponent;
 import com.gdx.chronoslime.ecs.component.common.SizeComponent;
 import com.gdx.chronoslime.ecs.component.common.TextureComponent;
+import com.gdx.chronoslime.ecs.component.common.VelocityComponent;
 import com.gdx.chronoslime.ecs.component.common.ZOrderComparator;
 import com.gdx.chronoslime.managers.GameManager;
 
@@ -63,6 +64,15 @@ public class RenderSystem extends SortedIteratingSystem {
         SizeComponent dimension = Mappers.SIZE.get(entity);
         TextureComponent texture = Mappers.TEXTURE.get(entity);
         ParticleComponent particle = Mappers.PARTICLE.get(entity);
+        VelocityComponent velocity = Mappers.VELOCITY.get(entity);
+
+        if (velocity != null) {
+            if (velocity.xVelocity > 0) {
+                texture.xScale = 1;
+            } else if (velocity.xVelocity < 0) {
+                texture.xScale = -1;
+            }
+        }
 
         if (texture != null) {
             if (texture.texture != null) {

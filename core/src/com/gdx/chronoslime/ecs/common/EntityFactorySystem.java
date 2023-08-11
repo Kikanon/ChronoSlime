@@ -32,6 +32,8 @@ import com.gdx.chronoslime.ecs.component.common.WorldWrapComponent;
 import com.gdx.chronoslime.ecs.component.common.ZOrderComponent;
 import com.gdx.chronoslime.managers.GameManager;
 
+import java.util.MissingResourceException;
+
 public class EntityFactorySystem extends EntitySystem {
     private final AssetManager assetManager;
 
@@ -174,9 +176,21 @@ public class EntityFactorySystem extends EntitySystem {
         size.height = type.size;
         size.width = type.size;
 
-        bounds.setPolygon(new float[]{0, 0, 1 * type.size, 0, 0.5f * type.size, 1 * type.size});
+        float[] ary = type.shape.clone();
+        for (int i = 0; i < ary.length; i++) {
+            ary[i] = ary[i] * type.size;
+        }
+        bounds.setPolygon(ary);
 
-        texture.texture = gamePlayAtlas.findRegion(type.spriteName);
+        int numFrames = gamePlayAtlas.findRegions(type.spriteName).size;
+        if (numFrames > 1) {
+            texture.animation = new Animation<TextureRegion>(0.44f, gamePlayAtlas.findRegions(type.spriteName), Animation.PlayMode.LOOP);
+        } else if (numFrames == 1) {
+            texture.texture = gamePlayAtlas.findRegion(type.spriteName);
+        } else {
+            throw new MissingResourceException("Missing texture region", null, null);
+        }
+
 
         zOrder.z = ZOrder.ENEMY.getZ();
 

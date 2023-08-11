@@ -25,6 +25,7 @@ public class ChronoSlimeGame extends Game {
         batch = new SpriteBatch();
         assetManager.load(AssetDescriptors.FONT32);
         assetManager.load(AssetDescriptors.GAME_PLAY);
+        assetManager.load(AssetDescriptors.UI);
         assetManager.load(AssetDescriptors.TILES);
         assetManager.load(AssetDescriptors.UI_SKIN);
         assetManager.load(AssetDescriptors.COIN_EXPLOSION);

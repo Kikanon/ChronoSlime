@@ -14,6 +14,7 @@ import com.gdx.chronoslime.ecs.common.types.GameDataType;
 import com.gdx.chronoslime.ecs.common.types.ItemType;
 import com.gdx.chronoslime.ecs.common.types.LevelType;
 import com.gdx.chronoslime.ecs.common.types.Wave;
+import com.gdx.chronoslime.screens.GameScreen;
 import com.gdx.chronoslime.screens.GameState;
 
 import java.util.Random;
@@ -41,6 +42,7 @@ public class GameManager {
     public boolean DEBUG;
     public float W_HEIGHT;
     public float W_WIDTH;
+    private GameScreen gameScreen;
 
 
     private GameManager() {
@@ -118,10 +120,17 @@ public class GameManager {
             options.add(validItems.get(randomInt));
             validItems.removeIndex(randomInt);
         }
-        System.out.println(options);
+        gameScreen.displayOptions(options);
+
+        Gdx.input.setInputProcessor(gameScreen.lvlUpStage);
     }
 
-    public void reset() {
+    public void addItem(ItemType item) {
+        gameState = GameState.PLAY;
+    }
+
+    public void reset(GameScreen screen) {
+        this.gameScreen = screen;
         enemyQueue.clear();
         elapsedTime = 0;
         score = 0;

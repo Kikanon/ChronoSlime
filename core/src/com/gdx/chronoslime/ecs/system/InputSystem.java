@@ -87,10 +87,5 @@ public class InputSystem extends IteratingSystem {
         if (velocity.yVelocity == 0 && velocity.xVelocity == 0) {
             texture.animationTime = 0f;
         }
-        if (velocity.xVelocity > 0) {
-            texture.xScale = 1;
-        } else if (velocity.xVelocity < 0) {
-            texture.xScale = -1;
-        }
     }
 }

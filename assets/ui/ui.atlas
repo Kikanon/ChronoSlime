@@ -1,0 +1,20 @@
+
+ui.png
+size: 256, 256
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+item_icon
+  rotate: false
+  xy: 2, 2
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+ui_frame
+  rotate: false
+  xy: 2, 132
+  size: 200, 108
+  orig: 200, 108
+  offset: 0, 0
+  index: -1

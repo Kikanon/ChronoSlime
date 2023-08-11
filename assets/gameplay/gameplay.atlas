@@ -1,89 +1,110 @@
 
 gameplay.png
-size: 512, 512
+size: 1024, 512
 format: RGBA8888
 filter: Nearest, Nearest
 repeat: none
 button
   rotate: false
-  xy: 2, 296
+  xy: 164, 199
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 obstacle
   rotate: false
-  xy: 2, 296
+  xy: 164, 199
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 enemy
   rotate: false
-  xy: 2, 166
+  xy: 326, 361
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
-item_icon
+knifeMouse
   rotate: false
-  xy: 132, 296
-  size: 128, 128
-  orig: 128, 128
+  xy: 2, 329
+  size: 160, 160
+  orig: 160, 160
   offset: 0, 0
-  index: -1
+  index: 0
+knifeMouse
+  rotate: false
+  xy: 2, 167
+  size: 160, 160
+  orig: 160, 160
+  offset: 0, 0
+  index: 1
+knifeMouse
+  rotate: false
+  xy: 164, 329
+  size: 160, 160
+  orig: 160, 160
+  offset: 0, 0
+  index: 2
+knifeMouse
+  rotate: false
+  xy: 2, 5
+  size: 160, 160
+  orig: 160, 160
+  offset: 0, 0
+  index: 3
 player
   rotate: false
-  xy: 2, 36
+  xy: 164, 69
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: 0
 player
   rotate: false
-  xy: 132, 166
+  xy: 456, 361
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: 1
 player
   rotate: false
-  xy: 262, 296
+  xy: 586, 361
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: 2
 player
   rotate: false
-  xy: 132, 36
+  xy: 716, 361
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: 3
 projectile
   rotate: false
-  xy: 262, 166
+  xy: 846, 361
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 render_pixel
   rotate: false
-  xy: 262, 163
+  xy: 2, 2
   size: 1, 1
   orig: 1, 1
   offset: 0, 0
   index: -1
 tile_background
   rotate: false
-  xy: 2, 2
+  xy: 164, 35
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 tile_obstacle
   rotate: false
-  xy: 392, 392
+  xy: 976, 457
   size: 32, 32
   orig: 32, 32
   offset: 0, 0

@@ -7,5 +7,6 @@ public class EnemyType {
     public float speed;
     public float score;
     public String spriteName;
+    public float[] shape;
 }
 

@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.gdx.chronoslime.assets.AssetDescriptors;
 import com.gdx.chronoslime.assets.RegionNames;
+import com.gdx.chronoslime.config.GameConfig;
 import com.gdx.chronoslime.ecs.component.common.BoundsComponent;
 import com.gdx.chronoslime.ecs.component.common.Mappers;
 import com.gdx.chronoslime.ecs.component.common.PositionComponent;
@@ -31,6 +32,7 @@ public class DebugRenderSystem extends IteratingSystem {
 
     public DebugRenderSystem(SpriteBatch batch, AssetManager assetManager) {
         super(FAMILY, PRIORITY);
+        setProcessing(GameConfig.DEBUG);
 
         this.batch = batch;
         gamePlayAtlas = assetManager.get(AssetDescriptors.GAME_PLAY);
