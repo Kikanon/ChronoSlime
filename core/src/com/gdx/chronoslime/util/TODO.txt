@@ -1,15 +1,15 @@
 - enemy spawning ✔
-- enemy behaviour
+- enemy behaviour ✔
 - different projectile movements
-- different despawn systems (health, position)
+- different despawn systems (health, position) ✔
 - enemy queue ✔
 - options (difficulty, something...)
-- pause game
+- pause game ✔
 - json levels ✔
 - json projectiles ✔
 - json items ✔
-- items pickup
-- score
+- items pickup ❌
+- score ✔
 - particles ✔ ️
 - leaderboard
 - animated sprites ✔

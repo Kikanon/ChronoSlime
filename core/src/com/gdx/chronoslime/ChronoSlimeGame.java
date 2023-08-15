@@ -40,26 +40,10 @@ public class ChronoSlimeGame extends Game {
         assetManager.dispose();
     }
 
-    public void startGame() {
-        Screen oldScreen = getScreen();
-        if (gameScreen == null) {
-            gameScreen = new GameScreen(this);
-            setScreen(gameScreen);
-        } else {
-            setScreen(gameScreen);
-            if (oldScreen != null)
-                oldScreen.dispose();
-        }
-    }
-
     public void changeScreen(Screen newScreen) {
         Screen oldScreen = getScreen();
-        if (oldScreen.getClass() == GameScreen.class) {
-            setScreen(newScreen);
-        } else {
-            setScreen(newScreen);
-            oldScreen.dispose();
-        }
+        setScreen(newScreen);
+        oldScreen.dispose();
     }
 
     public AssetManager getAssetManager() {

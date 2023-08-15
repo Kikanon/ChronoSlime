@@ -7,13 +7,16 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonWriter;
 import com.badlogic.gdx.utils.Queue;
-import com.gdx.chronoslime.assets.GameplayConfig;
+import com.gdx.chronoslime.assets.RegionNames;
 import com.gdx.chronoslime.config.GameConfig;
-import com.gdx.chronoslime.ecs.common.types.EnemyType;
-import com.gdx.chronoslime.ecs.common.types.GameDataType;
-import com.gdx.chronoslime.ecs.common.types.ItemType;
-import com.gdx.chronoslime.ecs.common.types.LevelType;
-import com.gdx.chronoslime.ecs.common.types.Wave;
+import com.gdx.chronoslime.config.GameplayConfig;
+import com.gdx.chronoslime.ecs.passive.types.EnemyType;
+import com.gdx.chronoslime.ecs.passive.types.GameDataType;
+import com.gdx.chronoslime.ecs.passive.types.ItemBuffType;
+import com.gdx.chronoslime.ecs.passive.types.ItemType;
+import com.gdx.chronoslime.ecs.passive.types.LevelType;
+import com.gdx.chronoslime.ecs.passive.types.ProjectileType;
+import com.gdx.chronoslime.ecs.passive.types.Wave;
 import com.gdx.chronoslime.screens.GameScreen;
 import com.gdx.chronoslime.screens.GameState;
 
@@ -36,25 +39,15 @@ public class GameManager {
     public long elapsedTime = 0;
     public long minutes = 0;
     public long seconds = 0;
-    public Array<ItemType> playerItems = new Array<>();
-    public float score = 0;
+    public Array<ItemBuffType> playerItems = new Array<>();
+    public Array<ProjectileType> playerWeapons = new Array<>();
+    public float score = 1;
+    public int currentLevel = 0;
     // game data variables
     public boolean DEBUG;
     public float W_HEIGHT;
     public float W_WIDTH;
     private GameScreen gameScreen;
-
-
-    private GameManager() {
-        obtainableItems.addAll(GameplayConfig.availableProjectiles);
-        obtainableItems.addAll(GameplayConfig.availableItems);
-    }
-
-    public void resizeWorld(float scale) {
-        if (scale <= 0) return;
-        W_WIDTH = W_WIDTH * scale;
-        W_HEIGHT = W_HEIGHT * scale;
-    }
 
     public boolean gameOver() {
         return false;
@@ -98,7 +91,8 @@ public class GameManager {
         elapsedTime += 1000 * deltaTime; // seconds to nanoseconds
         minutes = TimeUnit.MILLISECONDS.toMinutes(elapsedTime);
         seconds = TimeUnit.MILLISECONDS.toSeconds(elapsedTime) % 60;
-        if (score > 100) {
+        if (score > gameData.lvlUpExperience[currentLevel]) {
+            score -= gameData.lvlUpExperience[currentLevel];
             onLvlUp();
         }
     }
@@ -120,6 +114,11 @@ public class GameManager {
             options.add(validItems.get(randomInt));
             validItems.removeIndex(randomInt);
         }
+        if (options.isEmpty()) {
+            // get alternatives if empty heal or score
+            options.add(new ItemType(RegionNames.DEFAULT_ITEM, "Heal", "Heals you a bit."));
+            options.add(new ItemType(RegionNames.DEFAULT_ITEM, "Score", "Increases you score."));
+        }
         gameScreen.displayOptions(options);
 
         Gdx.input.setInputProcessor(gameScreen.lvlUpStage);
@@ -127,24 +126,57 @@ public class GameManager {
 
     public void addItem(ItemType item) {
         gameState = GameState.PLAY;
+        currentLevel += 1;
+        if (item.itemName.equals("Heal")) {
+            System.out.println("healed");
+        } else if (item.itemName.equals("Score")) {
+            System.out.println("score increased");
+        } else {
+            if (item.getClass() == ItemBuffType.class) {
+                if (playerItems.contains((ItemBuffType) item, true)) {
+                    item.level += 1;
+                } else {
+                    playerItems.add((ItemBuffType) item);
+                    obtainableItems.removeValue(item, false);
+                }
+
+            } else if (item.getClass() == ProjectileType.class) {
+                if (playerWeapons.contains((ProjectileType) item, true)) {
+                    item.level += 1;
+                } else {
+                    playerWeapons.add((ProjectileType) item);
+                    obtainableItems.removeValue(item, false);
+                }
+            }
+        }
+    }
+
+    private void refreshObtainableItems() {
+        obtainableItems.clear();
+        for (ProjectileType item : GameplayConfig.availableProjectiles)
+            obtainableItems.add(item.clone());
+        for (ItemBuffType item : GameplayConfig.availableItems) obtainableItems.add(item.clone());
     }
 
     public void reset(GameScreen screen) {
         this.gameScreen = screen;
         enemyQueue.clear();
         elapsedTime = 0;
-        score = 0;
+        score = 1;
+        currentLevel = 0;
         playerItems.clear();
-        obtainableItems.clear();
-        obtainableItems.addAll(GameplayConfig.availableProjectiles);
-        obtainableItems.addAll(GameplayConfig.availableItems);
+        playerWeapons.clear();
         gameState = GameState.PLAY;
+
+
+        refreshObtainableItems();
         readSettings();
 
         W_HEIGHT = GameConfig.W_HEIGHT;
         W_WIDTH = GameConfig.W_WIDTH;
         DEBUG = GameConfig.DEBUG;
-
-
     }
+
 }
+
+

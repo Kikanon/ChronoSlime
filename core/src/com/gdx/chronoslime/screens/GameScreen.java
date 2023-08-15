@@ -9,13 +9,13 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
@@ -26,34 +26,36 @@ import com.gdx.chronoslime.ChronoSlimeGame;
 import com.gdx.chronoslime.assets.AssetDescriptors;
 import com.gdx.chronoslime.assets.AssetPaths;
 import com.gdx.chronoslime.assets.RegionNames;
-import com.gdx.chronoslime.ecs.common.EntityFactorySystem;
-import com.gdx.chronoslime.ecs.common.SoundSystem;
-import com.gdx.chronoslime.ecs.common.StartUpSystem;
-import com.gdx.chronoslime.ecs.common.TiledSystem;
-import com.gdx.chronoslime.ecs.common.types.ItemType;
-import com.gdx.chronoslime.ecs.system.CameraMovementSystem;
+import com.gdx.chronoslime.ecs.passive.EntityFactorySystem;
+import com.gdx.chronoslime.ecs.passive.ParticleFactorySystem;
+import com.gdx.chronoslime.ecs.passive.ProjectileFactorySystem;
+import com.gdx.chronoslime.ecs.passive.SoundSystem;
+import com.gdx.chronoslime.ecs.passive.StartUpSystem;
+import com.gdx.chronoslime.ecs.passive.TiledSystem;
+import com.gdx.chronoslime.ecs.passive.types.ItemType;
 import com.gdx.chronoslime.ecs.system.CollisionSystem;
-import com.gdx.chronoslime.ecs.system.EnemyCleanupSystem;
-import com.gdx.chronoslime.ecs.system.EnemyMovementSystem;
-import com.gdx.chronoslime.ecs.system.EnemySpawnSystem;
-import com.gdx.chronoslime.ecs.system.GravitySystem;
-import com.gdx.chronoslime.ecs.system.InputSystem;
-import com.gdx.chronoslime.ecs.system.InteractableRefreshSystem;
-import com.gdx.chronoslime.ecs.system.LevelSystem;
-import com.gdx.chronoslime.ecs.system.MovementSystem;
-import com.gdx.chronoslime.ecs.system.PersistentVelocityRefreshSystem;
-import com.gdx.chronoslime.ecs.system.WorldWrapSystem;
+import com.gdx.chronoslime.ecs.system.cleanup.HealthCleanupSystem;
+import com.gdx.chronoslime.ecs.system.cleanup.InteractableRefreshSystem;
+import com.gdx.chronoslime.ecs.system.cleanup.PersistentVelocityRefreshSystem;
+import com.gdx.chronoslime.ecs.system.movement.EnemyMovementSystem;
+import com.gdx.chronoslime.ecs.system.movement.GravitySystem;
+import com.gdx.chronoslime.ecs.system.movement.InputSystem;
+import com.gdx.chronoslime.ecs.system.movement.MovementSystem;
+import com.gdx.chronoslime.ecs.system.movement.WorldWrapSystem;
+import com.gdx.chronoslime.ecs.system.render.CameraMovementSystem;
 import com.gdx.chronoslime.ecs.system.render.DebugRenderSystem;
 import com.gdx.chronoslime.ecs.system.render.HUDRenderSystem;
 import com.gdx.chronoslime.ecs.system.render.ParticleCleanupSystem;
 import com.gdx.chronoslime.ecs.system.render.RenderSystem;
+import com.gdx.chronoslime.ecs.system.spawning.EnemySpawnSystem;
+import com.gdx.chronoslime.ecs.system.spawning.LevelSystem;
+import com.gdx.chronoslime.ecs.system.spawning.ProjectileSpawnSystem;
 import com.gdx.chronoslime.managers.GameManager;
 import com.gdx.chronoslime.util.GdxUtils;
 
 public class GameScreen extends ScreenAdapter {
     public final Stage pauseStage;
     public final Stage lvlUpStage;
-    private final ChronoSlimeGame game;
     private final AssetManager assetManager;
     private final SpriteBatch batch;
     private final Skin skin;
@@ -62,10 +64,8 @@ public class GameScreen extends ScreenAdapter {
     private PooledEngine engine;
     private Viewport viewport;
     private Viewport hudViewport;
-    private ShapeRenderer renderer;
 
     public GameScreen(final ChronoSlimeGame game) {
-        this.game = game;
         assetManager = game.getAssetManager();
         uiAtlas = assetManager.get(AssetDescriptors.UI);
         batch = game.getBatch();
@@ -109,7 +109,7 @@ public class GameScreen extends ScreenAdapter {
         pauseStage.addActor(button2);
     }
 
-    public void displayOptions(Array<ItemType> options) {
+    public void displayOptions(final Array<ItemType> options) {
         lvlUpStage.clear();
 
         Image uiBackground = new Image(uiAtlas.findRegion(RegionNames.UI_FRAME));
@@ -117,19 +117,25 @@ public class GameScreen extends ScreenAdapter {
         uiBackground.setPosition(lvlUpStage.getWidth() / 2f - uiBackground.getWidth() / 2f, lvlUpStage.getHeight() / 2f - uiBackground.getHeight() / 2f);
         lvlUpStage.addActor(uiBackground);
 
-        for (final ItemType item : options) {
-            ImageButton option = new ImageButton(new TextureRegionDrawable(uiAtlas.findRegion(item.itemSpriteName)));
-            option.setSize(50f, 50f);
-            option.setPosition(uiBackground.getX() + uiBackground.getWidth() * 0.3f, uiBackground.getY() + uiBackground.getHeight() * 0.8f);
+        for (int i = 0; i < options.size; i++) {
+            final int finalI = i;
+            ImageButton option = new ImageButton(new TextureRegionDrawable(uiAtlas.findRegion(options.get(finalI).itemSpriteName)));
+            option.setSize(70f, 70f);
+            option.setPosition(uiBackground.getX() + uiBackground.getWidth() * ((1f / (options.size + 1)) * (i + 1)) - option.getWidth() / 2f, uiBackground.getY() + uiBackground.getHeight() * 0.7f - option.getHeight() / 2f);
             option.addListener(new InputListener() {
                 @Override
                 public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                    GameManager.INSTANCE.addItem(item);
+                    GameManager.INSTANCE.addItem(options.get(finalI));
                     Gdx.input.setInputProcessor(null);
                     return true;
                 }
             });
             lvlUpStage.addActor(option);
+
+            Label description = new Label(options.get(i).itemName, skin);
+            description.setPosition(uiBackground.getX() + uiBackground.getWidth() * ((1f / (options.size + 1)) * (i + 1)) - description.getWidth() / 2f, option.getY() - description.getHeight() - 10f);
+
+            lvlUpStage.addActor(description);
         }
 
     }
@@ -140,17 +146,19 @@ public class GameScreen extends ScreenAdapter {
         OrthographicCamera camera = new OrthographicCamera();
         viewport = new FitViewport(GameManager.INSTANCE.W_WIDTH, GameManager.INSTANCE.W_HEIGHT, camera);
         hudViewport = new FitViewport(GameManager.INSTANCE.W_WIDTH, GameManager.INSTANCE.W_HEIGHT);
-        renderer = new ShapeRenderer();
         BitmapFont font = assetManager.get(AssetDescriptors.FONT32);
         engine = new PooledEngine();
 
         // order important
         engine.addSystem(new EntityFactorySystem(assetManager));
+        engine.addSystem(new ParticleFactorySystem(assetManager));
+        engine.addSystem(new ProjectileFactorySystem(assetManager));
         engine.addSystem(new SoundSystem(assetManager));
         engine.addSystem(new TiledSystem(map));
         engine.addSystem(new StartUpSystem());
         engine.addSystem(new LevelSystem());
         engine.addSystem(new EnemySpawnSystem());
+        engine.addSystem(new ProjectileSpawnSystem());
 
         engine.addSystem(new EnemyMovementSystem());
 
@@ -172,7 +180,7 @@ public class GameScreen extends ScreenAdapter {
         engine.addSystem(new ParticleCleanupSystem());
         engine.addSystem(new InteractableRefreshSystem());
         engine.addSystem(new PersistentVelocityRefreshSystem());
-        engine.addSystem(new EnemyCleanupSystem());
+        engine.addSystem(new HealthCleanupSystem());
     }
 
     @Override
@@ -202,6 +210,7 @@ public class GameScreen extends ScreenAdapter {
             }
             case PAUSED: {
                 engine.getSystem(RenderSystem.class).update(0);
+                GdxUtils.clearScreen();
                 pauseStage.act();
                 pauseStage.draw();
                 break;
@@ -225,7 +234,11 @@ public class GameScreen extends ScreenAdapter {
 
     @Override
     public void dispose() {
-        renderer.dispose();
         engine.removeAllEntities();
+        engine.removeAllSystems();
+        engine.clearPools();
+        pauseStage.dispose();
+        lvlUpStage.dispose();
+
     }
 }

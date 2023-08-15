@@ -28,7 +28,7 @@ public class HUDRenderSystem extends EntitySystem {
         this.hudViewport = hudViewport;
         this.font = font;
         this.skin = skin;
-        bar = new ProgressBar(0f, 100f, 1f, false, skin);
+        bar = new ProgressBar(0f, GameManager.INSTANCE.gameData.lvlUpExperience[GameManager.INSTANCE.currentLevel], 1f, false, skin);
         bar.setWidth(GameConfig.W_WIDTH - 20f);
         bar.setHeight(20f);
         bar.setPosition(10f, GameConfig.W_HEIGHT - bar.getHeight() - 10f);
@@ -46,7 +46,7 @@ public class HUDRenderSystem extends EntitySystem {
 
         // middle
         float endX = (hudViewport.getWorldWidth() + layout.width) / 2 - layout.width;
-        float endY = hudViewport.getWorldHeight() - 20f;
+        float endY = hudViewport.getWorldHeight() - 40f;
 
         // time
         layout.setText(font, String.format("%02d:%02d", GameManager.INSTANCE.minutes, GameManager.INSTANCE.seconds));
@@ -67,6 +67,8 @@ public class HUDRenderSystem extends EntitySystem {
 
             font.draw(batch, layout, endX, endY);
         }
+        bar.setRange(0f, GameManager.INSTANCE.gameData.lvlUpExperience[GameManager.INSTANCE.currentLevel]);
+
         bar.setValue(GameManager.INSTANCE.score);
         bar.draw(batch, 1f);
 

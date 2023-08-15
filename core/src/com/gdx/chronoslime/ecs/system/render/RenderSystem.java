@@ -7,14 +7,14 @@ import com.badlogic.ashley.systems.SortedIteratingSystem;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.gdx.chronoslime.ecs.common.TiledSystem;
-import com.gdx.chronoslime.ecs.component.common.Mappers;
-import com.gdx.chronoslime.ecs.component.common.ParticleComponent;
-import com.gdx.chronoslime.ecs.component.common.PositionComponent;
-import com.gdx.chronoslime.ecs.component.common.SizeComponent;
-import com.gdx.chronoslime.ecs.component.common.TextureComponent;
-import com.gdx.chronoslime.ecs.component.common.VelocityComponent;
-import com.gdx.chronoslime.ecs.component.common.ZOrderComparator;
+import com.gdx.chronoslime.ecs.component.drawable.TextureComponent;
+import com.gdx.chronoslime.ecs.component.drawable.ZOrderComparator;
+import com.gdx.chronoslime.ecs.component.identification.ParticleComponent;
+import com.gdx.chronoslime.ecs.component.interaction.SizeComponent;
+import com.gdx.chronoslime.ecs.component.movement.PositionComponent;
+import com.gdx.chronoslime.ecs.component.movement.VelocityComponent;
+import com.gdx.chronoslime.ecs.component.util.Mappers;
+import com.gdx.chronoslime.ecs.passive.TiledSystem;
 import com.gdx.chronoslime.managers.GameManager;
 
 
@@ -61,7 +61,7 @@ public class RenderSystem extends SortedIteratingSystem {
     protected void processEntity(Entity entity, float deltaTime) {
 
         PositionComponent position = Mappers.POSITION.get(entity);
-        SizeComponent dimension = Mappers.SIZE.get(entity);
+        SizeComponent size = Mappers.SIZE.get(entity);
         TextureComponent texture = Mappers.TEXTURE.get(entity);
         ParticleComponent particle = Mappers.PARTICLE.get(entity);
         VelocityComponent velocity = Mappers.VELOCITY.get(entity);
@@ -78,16 +78,16 @@ public class RenderSystem extends SortedIteratingSystem {
             if (texture.texture != null) {
                 batch.draw(texture.texture,
                         position.x, position.y,
-                        dimension.width / 2, dimension.height / 2,
-                        dimension.width, dimension.height,
+                        size.width / 2, size.height / 2,
+                        size.width, size.height,
                         texture.xScale, texture.yScale,
                         position.r);
             }
             if (texture.animation != null) {
                 batch.draw(texture.animation.getKeyFrame(texture.animationTime, true),
                         position.x, position.y,
-                        dimension.width / 2, dimension.height / 2,
-                        dimension.width, dimension.height,
+                        size.width / 2, size.height / 2,
+                        size.width, size.height,
                         texture.xScale, texture.yScale,
                         position.r);
                 texture.animationTime += deltaTime;

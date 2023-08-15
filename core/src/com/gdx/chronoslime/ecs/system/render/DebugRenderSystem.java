@@ -10,10 +10,10 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.gdx.chronoslime.assets.AssetDescriptors;
 import com.gdx.chronoslime.assets.RegionNames;
 import com.gdx.chronoslime.config.GameConfig;
-import com.gdx.chronoslime.ecs.component.common.BoundsComponent;
-import com.gdx.chronoslime.ecs.component.common.Mappers;
-import com.gdx.chronoslime.ecs.component.common.PositionComponent;
-import com.gdx.chronoslime.ecs.component.common.VelocityComponent;
+import com.gdx.chronoslime.ecs.component.interaction.BoundsComponent;
+import com.gdx.chronoslime.ecs.component.movement.PositionComponent;
+import com.gdx.chronoslime.ecs.component.movement.VelocityComponent;
+import com.gdx.chronoslime.ecs.component.util.Mappers;
 
 import space.earlygrey.shapedrawer.ShapeDrawer;
 

@@ -4,8 +4,8 @@ import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
-import com.gdx.chronoslime.ecs.component.common.Mappers;
-import com.gdx.chronoslime.ecs.component.common.ParticleComponent;
+import com.gdx.chronoslime.ecs.component.identification.ParticleComponent;
+import com.gdx.chronoslime.ecs.component.util.Mappers;
 
 
 public class ParticleCleanupSystem extends IteratingSystem {

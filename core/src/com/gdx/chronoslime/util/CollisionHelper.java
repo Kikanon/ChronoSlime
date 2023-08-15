@@ -2,7 +2,7 @@ package com.gdx.chronoslime.util;
 
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Vector2;
-import com.gdx.chronoslime.ecs.component.common.BoundsComponent;
+import com.gdx.chronoslime.ecs.component.interaction.BoundsComponent;
 
 public class CollisionHelper {
 
