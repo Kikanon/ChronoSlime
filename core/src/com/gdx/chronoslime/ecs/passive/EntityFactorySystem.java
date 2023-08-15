@@ -19,6 +19,8 @@ import com.gdx.chronoslime.ecs.component.identification.PlayerComponent;
 import com.gdx.chronoslime.ecs.component.interaction.BoundsComponent;
 import com.gdx.chronoslime.ecs.component.interaction.InteractableComponent;
 import com.gdx.chronoslime.ecs.component.interaction.SizeComponent;
+import com.gdx.chronoslime.ecs.component.lifetime.HealthComponent;
+import com.gdx.chronoslime.ecs.component.movement.FollowPlayerComponent;
 import com.gdx.chronoslime.ecs.component.movement.PositionComponent;
 import com.gdx.chronoslime.ecs.component.movement.VelocityComponent;
 import com.gdx.chronoslime.ecs.component.movement.WorldWrapComponent;
@@ -73,8 +75,12 @@ public class EntityFactorySystem extends EntitySystem {
         ZOrderComponent zOrder = engine.createComponent(ZOrderComponent.class);
         zOrder.z = ZOrder.PLAYER.getZ();
 
+        HealthComponent health = engine.createComponent(HealthComponent.class);
+        health.init(100f);
+
         Entity entity = engine.createEntity();
         entity.add(position);
+        entity.add(health);
         entity.add(size);
         entity.add(bounds);
         entity.add(velocity);
@@ -99,6 +105,8 @@ public class EntityFactorySystem extends EntitySystem {
         EnemyComponent enemyComponent = engine.createComponent(EnemyComponent.class);
         WorldWrapComponent wrapComponent = engine.createComponent(WorldWrapComponent.class);
         InteractableComponent interactableComponent = engine.createComponent(InteractableComponent.class);
+        FollowPlayerComponent followPlayerComponent = engine.createComponent(FollowPlayerComponent.class);
+        HealthComponent healthComponent = engine.createComponent(HealthComponent.class);
 
         size.height = type.size;
         size.width = type.size;
@@ -118,7 +126,7 @@ public class EntityFactorySystem extends EntitySystem {
             throw new MissingResourceException("Missing texture region", null, null);
         }
 
-
+        healthComponent.init(type.health);
         zOrder.z = ZOrder.ENEMY.getZ();
 
         enemyComponent.init(type);
@@ -127,6 +135,7 @@ public class EntityFactorySystem extends EntitySystem {
 
         Entity entity = engine.createEntity();
         entity.add(position);
+        entity.add(healthComponent);
         entity.add(size);
         entity.add(bounds);
         entity.add(velocity);
@@ -135,6 +144,7 @@ public class EntityFactorySystem extends EntitySystem {
         entity.add(wrapComponent);
         entity.add(enemyComponent);
         entity.add(interactableComponent);
+        entity.add(followPlayerComponent);
 
         GameManager.INSTANCE.enemyQueue.addLast(entity);
 

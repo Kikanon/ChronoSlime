@@ -49,7 +49,7 @@ public class ProjectileSpawnSystem extends IntervalSystem {
                         break;
                     }
                     case ORBIT: {
-                        projectileFactory.createRelativeProjectile(item);
+                        projectileFactory.createRelativeProjectile(position, item);
                         break;
                     }
                 }

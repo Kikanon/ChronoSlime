@@ -10,9 +10,10 @@ import com.gdx.chronoslime.ecs.component.identification.ProjectileComponent;
 import com.gdx.chronoslime.ecs.component.interaction.BoundsComponent;
 import com.gdx.chronoslime.ecs.component.interaction.InteractableComponent;
 import com.gdx.chronoslime.ecs.component.interaction.SizeComponent;
+import com.gdx.chronoslime.ecs.component.lifetime.HealthComponent;
 import com.gdx.chronoslime.ecs.component.lifetime.LifetimeComponent;
+import com.gdx.chronoslime.ecs.component.movement.OrbitalPositionComponent;
 import com.gdx.chronoslime.ecs.component.movement.PositionComponent;
-import com.gdx.chronoslime.ecs.component.movement.RelativePositionComponent;
 import com.gdx.chronoslime.ecs.component.movement.VelocityComponent;
 import com.gdx.chronoslime.ecs.component.movement.WorldWrapComponent;
 
@@ -20,6 +21,9 @@ public final class Mappers {
 
     public static final ComponentMapper<BoundsComponent> BOUNDS =
             ComponentMapper.getFor(BoundsComponent.class);
+    
+    public static final ComponentMapper<HealthComponent> HEALTH =
+            ComponentMapper.getFor(HealthComponent.class);
 
     public static final ComponentMapper<VelocityComponent> VELOCITY =
             ComponentMapper.getFor(VelocityComponent.class);
@@ -52,8 +56,8 @@ public final class Mappers {
 
     public static final ComponentMapper<LifetimeComponent> LIFETIME =
             ComponentMapper.getFor(LifetimeComponent.class);
-    public static final ComponentMapper<RelativePositionComponent> RELATIVE_POSITION =
-            ComponentMapper.getFor(RelativePositionComponent.class);
+    public static final ComponentMapper<OrbitalPositionComponent> RELATIVE_POSITION =
+            ComponentMapper.getFor(OrbitalPositionComponent.class);
 
     private Mappers() {
     }

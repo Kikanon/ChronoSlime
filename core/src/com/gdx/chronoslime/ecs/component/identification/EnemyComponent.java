@@ -5,7 +5,6 @@ import com.badlogic.gdx.utils.Pool;
 import com.gdx.chronoslime.ecs.passive.types.EnemyType;
 
 public class EnemyComponent implements Component, Pool.Poolable {
-    public float health;
     public float damage;
     public float size;
     public float speed;
@@ -13,20 +12,15 @@ public class EnemyComponent implements Component, Pool.Poolable {
     public float score;
 
     public void init(EnemyType type) {
-        health = type.health;
         damage = type.damage;
         size = type.size;
         speed = type.speed;
         score = type.score;
     }
 
-    public void hurt(float damage) {
-        health -= damage;
-    }
 
     @Override
     public void reset() {
-        health = 0f;
         damage = 0f;
         size = 0f;
         speed = 0f;

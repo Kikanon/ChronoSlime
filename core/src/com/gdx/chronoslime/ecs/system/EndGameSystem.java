@@ -1,28 +1,28 @@
-package com.gdx.chronoslime.ecs.system.cleanup;
+package com.gdx.chronoslime.ecs.system;
 
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
-import com.gdx.chronoslime.ecs.component.identification.EnemyComponent;
+import com.gdx.chronoslime.ecs.component.identification.PlayerComponent;
 import com.gdx.chronoslime.ecs.component.lifetime.HealthComponent;
 import com.gdx.chronoslime.ecs.component.util.Mappers;
 import com.gdx.chronoslime.ecs.passive.ParticleFactorySystem;
 import com.gdx.chronoslime.managers.GameManager;
+import com.gdx.chronoslime.screens.GameState;
 
 
-public class HealthCleanupSystem extends IteratingSystem {
+public class EndGameSystem extends IteratingSystem {
 
-
-    private static final Family FAMILY = Family.all(
+    private static final Family PLAYER_FAMILY = Family.all(
+            PlayerComponent.class,
             HealthComponent.class
     ).get();
 
     private ParticleFactorySystem factory;
 
-    public HealthCleanupSystem() {
-        super(FAMILY);
-
+    public EndGameSystem() {
+        super(PLAYER_FAMILY);
     }
 
     @Override
@@ -35,9 +35,8 @@ public class HealthCleanupSystem extends IteratingSystem {
     protected void processEntity(Entity entity, float deltaTime) {
         HealthComponent healthComponent = Mappers.HEALTH.get(entity);
         if (healthComponent.currentHealth < 1) {
-            EnemyComponent enemyComponent = Mappers.ENEMY.get(entity);
-            if (enemyComponent != null) GameManager.INSTANCE.score += enemyComponent.score;
-            getEngine().removeEntity(entity);
+            // game over
+            GameManager.INSTANCE.gameState = GameState.PAUSED;
         }
     }
 }

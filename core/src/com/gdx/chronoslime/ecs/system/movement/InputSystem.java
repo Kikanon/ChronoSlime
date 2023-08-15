@@ -41,7 +41,6 @@ public class InputSystem extends IteratingSystem {
     @Override
     protected void processEntity(Entity entity, float deltaTime) {
         VelocityComponent velocity = Mappers.VELOCITY.get(entity);
-        PositionComponent position = Mappers.POSITION.get(entity);
         TextureComponent texture = Mappers.TEXTURE.get(entity);
         WorldWrapComponent wrap = Mappers.WRAP.get(entity);
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {

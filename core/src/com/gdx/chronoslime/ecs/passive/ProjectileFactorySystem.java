@@ -17,8 +17,8 @@ import com.gdx.chronoslime.ecs.component.interaction.BoundsComponent;
 import com.gdx.chronoslime.ecs.component.interaction.SizeComponent;
 import com.gdx.chronoslime.ecs.component.lifetime.LifetimeComponent;
 import com.gdx.chronoslime.ecs.component.movement.GravityComponent;
+import com.gdx.chronoslime.ecs.component.movement.OrbitalPositionComponent;
 import com.gdx.chronoslime.ecs.component.movement.PositionComponent;
-import com.gdx.chronoslime.ecs.component.movement.RelativePositionComponent;
 import com.gdx.chronoslime.ecs.component.movement.VelocityComponent;
 import com.gdx.chronoslime.ecs.passive.types.ProjectileType;
 
@@ -89,9 +89,10 @@ public class ProjectileFactorySystem extends EntitySystem {
         return entity;
     }
 
-    public Entity createRelativeProjectile(ProjectileType type) {
+    public Entity createRelativeProjectile(PositionComponent parentPosition, ProjectileType type) {
         PositionComponent position = engine.createComponent(PositionComponent.class);
-        RelativePositionComponent relative = engine.createComponent(RelativePositionComponent.class);
+        position.set(parentPosition);
+        OrbitalPositionComponent relative = engine.createComponent(OrbitalPositionComponent.class);
 
         SizeComponent size = engine.createComponent(SizeComponent.class);
         BoundsComponent bounds = engine.createComponent(BoundsComponent.class);

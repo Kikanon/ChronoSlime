@@ -4,7 +4,7 @@ import com.badlogic.ashley.core.Component;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Pool;
 
-public class RelativePositionComponent implements Component, Pool.Poolable {
+public class OrbitalPositionComponent implements Component, Pool.Poolable {
 
     public float rDistance = 10f;
 

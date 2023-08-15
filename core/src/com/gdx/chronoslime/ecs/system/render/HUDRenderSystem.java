@@ -1,6 +1,7 @@
 package com.gdx.chronoslime.ecs.system.render;
 
 import com.badlogic.ashley.core.EntitySystem;
+import com.badlogic.ashley.core.Family;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
@@ -9,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.gdx.chronoslime.config.GameConfig;
+import com.gdx.chronoslime.ecs.component.identification.EnemyComponent;
 import com.gdx.chronoslime.managers.GameManager;
 
 public class HUDRenderSystem extends EntitySystem {
@@ -56,7 +58,7 @@ public class HUDRenderSystem extends EntitySystem {
         if (GameManager.INSTANCE.DEBUG) {
             layout.setText(font, String.format("Q size: %d", GameManager.INSTANCE.enemyQueue.size));
             font.draw(batch, layout, endX, endY - 40f);
-            layout.setText(font, String.format("Size: %f %f", GameManager.INSTANCE.W_WIDTH, GameManager.INSTANCE.W_HEIGHT));
+            layout.setText(font, String.format("numE size: %d", getEngine().getEntitiesFor(Family.all(EnemyComponent.class).get()).size()));
             font.draw(batch, layout, endX, endY - 80f);
         }
 
