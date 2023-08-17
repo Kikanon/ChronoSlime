@@ -5,7 +5,7 @@ public class ItemType {
     public String itemName;
     public String itemDescription;
 
-    public int maxLevel = 1;
+    public int maxLevel = 0;
     public int level = 0;
 
     public ItemType(String itemSpriteName, String itemName, String itemDescription) {

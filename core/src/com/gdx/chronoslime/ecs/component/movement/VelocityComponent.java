@@ -75,4 +75,9 @@ public class VelocityComponent implements Component, Pool.Poolable {
         yVelocityPersistent = 0f;
         rVelocityPersistent = 0f;
     }
+
+    @Override
+    public String toString() {
+        return getTotalXVelocity() + ", " + getTotalYVelocity();
+    }
 }

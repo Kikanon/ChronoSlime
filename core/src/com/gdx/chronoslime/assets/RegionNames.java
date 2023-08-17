@@ -15,6 +15,8 @@ public class RegionNames {
     // ui
     public static final String DEFAULT_ITEM = "item_icon";
     public static final String UI_FRAME = "ui_frame";
+    public static final String UI_FONT_NAME_SMALL = "gameFontSmall";
+    public static final String UI_FONT_NAME_BIG = "gameFontBig";
 
 
     private RegionNames() {

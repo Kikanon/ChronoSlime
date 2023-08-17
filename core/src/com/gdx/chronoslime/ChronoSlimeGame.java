@@ -23,13 +23,13 @@ public class ChronoSlimeGame extends Game {
         assetManager = new AssetManager();
         assetManager.setLoader(TiledMap.class, new TmxMapLoader(new InternalFileHandleResolver()));
         batch = new SpriteBatch();
-        assetManager.load(AssetDescriptors.FONT32);
         assetManager.load(AssetDescriptors.GAME_PLAY);
         assetManager.load(AssetDescriptors.UI);
         assetManager.load(AssetDescriptors.TILES);
         assetManager.load(AssetDescriptors.UI_SKIN);
         assetManager.load(AssetDescriptors.COIN_EXPLOSION);
         assetManager.finishLoading();
+        //https://github.com/kotcrab/vis-ui
         setScreen(new MenuScreen(this));
     }
 

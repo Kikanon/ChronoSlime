@@ -9,7 +9,8 @@ import com.gdx.chronoslime.ecs.passive.types.enums.SpawnFuncId;
 public class GameplayConfig {
     public static final float PLAYER_SIZE = 32f;
     public static final Array<ProjectileType> availableProjectiles = new Array<>(new ProjectileType[]{
-            new ProjectileType(SpawnFuncId.ORBIT, RegionNames.PROJECTILE, RegionNames.DEFAULT_ITEM, "Projectile 1", "Default projectile", 5f, 10, 8, 20f)
+            new ProjectileType(SpawnFuncId.ORBIT, RegionNames.PROJECTILE, RegionNames.DEFAULT_ITEM, "orbit projectile", "Orbiting projectiles", 5f, 10, 8, 20f),
+            new ProjectileType(SpawnFuncId.FORWARD, RegionNames.PROJECTILE, RegionNames.DEFAULT_ITEM, "straight projectile", "Go straight", 5f, 10, 8, 20f)
     });
 
     public static final Array<ItemBuffType> availableItems = new Array<>(new ItemBuffType[]{});

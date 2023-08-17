@@ -44,10 +44,10 @@ public class ProjectileFactorySystem extends EntitySystem {
     }
 
 
-    public Entity createProjectileForward(PositionComponent startPosition, VelocityComponent parentVelocity, ProjectileType type) {
+    public Entity createProjectileForward(PositionComponent startPosition, VelocityComponent parentVelocity, ProjectileType type, float dir) {
         PositionComponent position = engine.createComponent(PositionComponent.class);
         position.set(startPosition);
-
+        
         SizeComponent size = engine.createComponent(SizeComponent.class);
         BoundsComponent bounds = engine.createComponent(BoundsComponent.class);
         VelocityComponent velocity = engine.createComponent(VelocityComponent.class);
@@ -67,7 +67,12 @@ public class ProjectileFactorySystem extends EntitySystem {
         bounds.rectangle(size.width, size.height);
 
         texture.texture = gamePlayAtlas.findRegion(type.spriteName);
-        float direction = (float) Math.atan2(parentVelocity.getTotalYVelocity(), parentVelocity.getTotalXVelocity());
+
+        float direction = (float) Math.toDegrees(Math.atan2(parentVelocity.getTotalYVelocity(), parentVelocity.getTotalXVelocity()));
+        if (direction == 0 && dir < 0) {
+            direction += 180;
+        }
+
         velocity.xVelocity = MathUtils.cosDeg(direction) * type.speed;
         velocity.yVelocity = MathUtils.sinDeg(direction) * type.speed;
         velocity.addFromVector2(parentVelocity.getVector2Velocity());

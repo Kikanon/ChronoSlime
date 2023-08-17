@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.gdx.chronoslime.assets.RegionNames;
 import com.gdx.chronoslime.config.GameConfig;
 import com.gdx.chronoslime.ecs.component.identification.EnemyComponent;
 import com.gdx.chronoslime.managers.GameManager;
@@ -22,18 +23,25 @@ public class HUDRenderSystem extends EntitySystem {
     private final BitmapFont font;
     private final Skin skin;
     private final GlyphLayout layout = new GlyphLayout();
-    ProgressBar bar;
+    public ProgressBar experienceBar;
+    public ProgressBar healthBar;
 
-    public HUDRenderSystem(SpriteBatch batch, Viewport hudViewport, BitmapFont font, Skin skin) {
+    public HUDRenderSystem(SpriteBatch batch, Viewport hudViewport, Skin skin) {
         super(10);
         this.batch = batch;
         this.hudViewport = hudViewport;
-        this.font = font;
+        this.font = skin.getFont(RegionNames.UI_FONT_NAME_SMALL);
         this.skin = skin;
-        bar = new ProgressBar(0f, GameManager.INSTANCE.gameData.lvlUpExperience[GameManager.INSTANCE.currentLevel], 1f, false, skin);
-        bar.setWidth(GameConfig.W_WIDTH - 20f);
-        bar.setHeight(20f);
-        bar.setPosition(10f, GameConfig.W_HEIGHT - bar.getHeight() - 10f);
+
+        experienceBar = new ProgressBar(0f, GameManager.INSTANCE.gameData.lvlUpExperience[GameManager.INSTANCE.currentLevel], 1f, false, skin);
+        experienceBar.setWidth(GameConfig.W_WIDTH - 20f);
+        experienceBar.setHeight(20f);
+        experienceBar.setPosition(10f, GameConfig.W_HEIGHT - experienceBar.getHeight() - 10f);
+
+        healthBar = new ProgressBar(0f, 100f, 1f, true, skin);
+        healthBar.setHeight(GameConfig.W_HEIGHT / 2f);
+        healthBar.setPosition(20f, GameConfig.W_HEIGHT / 2f - healthBar.getHeight() / 2f);
+
 
     }
 
@@ -56,6 +64,7 @@ public class HUDRenderSystem extends EntitySystem {
 
         // debug data
         if (GameManager.INSTANCE.DEBUG) {
+
             layout.setText(font, String.format("Q size: %d", GameManager.INSTANCE.enemyQueue.size));
             font.draw(batch, layout, endX, endY - 40f);
             layout.setText(font, String.format("numE size: %d", getEngine().getEntitiesFor(Family.all(EnemyComponent.class).get()).size()));
@@ -69,10 +78,13 @@ public class HUDRenderSystem extends EntitySystem {
 
             font.draw(batch, layout, endX, endY);
         }
-        bar.setRange(0f, GameManager.INSTANCE.gameData.lvlUpExperience[GameManager.INSTANCE.currentLevel]);
+        experienceBar.setRange(0f, GameManager.INSTANCE.gameData.lvlUpExperience[GameManager.INSTANCE.currentLevel]);
 
-        bar.setValue(GameManager.INSTANCE.score);
-        bar.draw(batch, 1f);
+        experienceBar.setValue(GameManager.INSTANCE.score);
+        experienceBar.draw(batch, 1f);
+
+        healthBar.setValue(50f);
+        healthBar.draw(batch, 1f);
 
         batch.end();
     }

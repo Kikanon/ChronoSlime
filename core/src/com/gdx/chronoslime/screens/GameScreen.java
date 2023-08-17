@@ -6,7 +6,6 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -33,6 +32,7 @@ import com.gdx.chronoslime.ecs.passive.SoundSystem;
 import com.gdx.chronoslime.ecs.passive.StartUpSystem;
 import com.gdx.chronoslime.ecs.passive.TiledSystem;
 import com.gdx.chronoslime.ecs.passive.types.ItemType;
+import com.gdx.chronoslime.ecs.passive.types.enums.GameState;
 import com.gdx.chronoslime.ecs.system.CollisionSystem;
 import com.gdx.chronoslime.ecs.system.EndGameSystem;
 import com.gdx.chronoslime.ecs.system.cleanup.HealthCleanupSystem;
@@ -152,7 +152,6 @@ public class GameScreen extends ScreenAdapter {
         OrthographicCamera camera = new OrthographicCamera();
         viewport = new FitViewport(GameManager.INSTANCE.W_WIDTH, GameManager.INSTANCE.W_HEIGHT, camera);
         hudViewport = new FitViewport(GameManager.INSTANCE.W_WIDTH, GameManager.INSTANCE.W_HEIGHT);
-        BitmapFont font = assetManager.get(AssetDescriptors.FONT32);
         engine = new PooledEngine();
 
         // order important
@@ -185,7 +184,7 @@ public class GameScreen extends ScreenAdapter {
 
         engine.addSystem(new RenderSystem(batch, viewport));
         engine.addSystem(new DebugRenderSystem(batch, assetManager)); // debug only
-        engine.addSystem(new HUDRenderSystem(batch, hudViewport, font, skin));
+        engine.addSystem(new HUDRenderSystem(batch, hudViewport, skin));
 
         engine.addSystem(new ParticleCleanupSystem());
         engine.addSystem(new InteractableRefreshSystem());

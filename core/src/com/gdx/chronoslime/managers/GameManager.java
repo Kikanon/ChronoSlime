@@ -2,11 +2,13 @@ package com.gdx.chronoslime.managers;
 
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonWriter;
 import com.badlogic.gdx.utils.Queue;
+import com.gdx.chronoslime.ChronoSlimeGame;
 import com.gdx.chronoslime.assets.RegionNames;
 import com.gdx.chronoslime.config.GameConfig;
 import com.gdx.chronoslime.config.GameplayConfig;
@@ -17,8 +19,8 @@ import com.gdx.chronoslime.ecs.passive.types.ItemType;
 import com.gdx.chronoslime.ecs.passive.types.LevelType;
 import com.gdx.chronoslime.ecs.passive.types.ProjectileType;
 import com.gdx.chronoslime.ecs.passive.types.Wave;
+import com.gdx.chronoslime.ecs.passive.types.enums.GameState;
 import com.gdx.chronoslime.screens.GameScreen;
-import com.gdx.chronoslime.screens.GameState;
 
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
@@ -47,7 +49,12 @@ public class GameManager {
     public boolean DEBUG;
     public float W_HEIGHT;
     public float W_WIDTH;
+    public Preferences preferences;
     private GameScreen gameScreen;
+
+    GameManager() {
+        preferences = Gdx.app.getPreferences(ChronoSlimeGame.class.getSimpleName());
+    }
 
     public boolean gameOver() {
         return false;
@@ -88,6 +95,7 @@ public class GameManager {
     }
 
     public void update(float deltaTime) {
+        if (!gameState.equals(GameState.PLAY)) return;
         elapsedTime += 1000 * deltaTime; // seconds to nanoseconds
         minutes = TimeUnit.MILLISECONDS.toMinutes(elapsedTime);
         seconds = TimeUnit.MILLISECONDS.toSeconds(elapsedTime) % 60;

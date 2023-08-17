@@ -1,4 +1,4 @@
-package com.gdx.chronoslime.screens;
+package com.gdx.chronoslime.ecs.passive.types.enums;
 
 public enum GameState {
     PLAY,
