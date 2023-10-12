@@ -1,4 +1,4 @@
-package com.gdx.chronoslime.ecs.passive.types;
+package com.gdx.chronoslime.ecs.types;
 
 public class Wave {
     public long levelTimeOffset;

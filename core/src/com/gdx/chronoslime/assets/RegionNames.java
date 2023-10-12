@@ -4,9 +4,8 @@ public class RegionNames {
 
     // gameplay
     public static final String BUTTON = "button";
-    public static final String ENEMY = "enemy";
     public static final String OBSTACLE = "obstacle";
-    public static final String PLAYER = "player";
+    public static final String PLAYER = "playerSlime";
     public static final String PROJECTILE = "projectile";
     public static final String TILE_BG = "tile_background";
     public static final String TILE_OBSTACLE = "tile_obstacle";

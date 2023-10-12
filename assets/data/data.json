@@ -4,7 +4,7 @@
       "health": 20,
       "damage": 20,
       "size": 40,
-      "speed": 1,
+      "speed": 2,
       "score": 20,
       "shape": [
         0.2,
@@ -12,29 +12,29 @@
         1,
         0,
         0.7,
-        0.6,
+        0.5,
         0,
-        0.6
+        0.5
       ],
       "spriteName": "knifeMouse"
     },
     {
-      "health": 20,
+      "health": 200,
       "damage": 20,
-      "size": 20,
-      "speed": 6,
+      "size": 40,
+      "speed": 1,
       "score": 10,
       "shape": [
         0.2,
         0,
+        0.8,
+        0,
         1,
-        0,
         0.7,
-        0.6,
         0,
-        0.6
+        0.7
       ],
-      "spriteName": "enemy"
+      "spriteName": "swordSkeleton"
     }
   ],
   "levels": [
@@ -43,13 +43,13 @@
       "waves": [
         {
           "levelTimeOffset": 1000,
-          "enemyNum": 200,
+          "enemyNum": 20,
           "enemyTypeNum": 0
         },
         {
           "levelTimeOffset": 6000,
-          "enemyNum": 1,
-          "enemyTypeNum": 0
+          "enemyNum": 10,
+          "enemyTypeNum": 1
         }
       ]
     },

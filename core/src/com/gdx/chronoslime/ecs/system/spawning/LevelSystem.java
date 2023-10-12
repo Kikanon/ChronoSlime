@@ -4,7 +4,7 @@ import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.systems.IntervalSystem;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.gdx.chronoslime.ecs.passive.EntityFactorySystem;
-import com.gdx.chronoslime.ecs.passive.types.LevelType;
+import com.gdx.chronoslime.ecs.types.LevelType;
 import com.gdx.chronoslime.managers.GameManager;
 
 
@@ -36,7 +36,6 @@ public class LevelSystem extends IntervalSystem {
 
                     factory.createEnemy(GameManager.INSTANCE.gameData.enemyTypes[levels[currentLevel].waves[currentWave].enemyTypeNum]);
                 }
-
                 currentWave++;
             }
         }

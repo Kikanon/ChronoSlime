@@ -20,7 +20,7 @@ import com.gdx.chronoslime.ecs.component.movement.GravityComponent;
 import com.gdx.chronoslime.ecs.component.movement.OrbitalPositionComponent;
 import com.gdx.chronoslime.ecs.component.movement.PositionComponent;
 import com.gdx.chronoslime.ecs.component.movement.VelocityComponent;
-import com.gdx.chronoslime.ecs.passive.types.ProjectileType;
+import com.gdx.chronoslime.ecs.types.ProjectileType;
 
 public class ProjectileFactorySystem extends EntitySystem {
     private final AssetManager assetManager;
@@ -47,7 +47,7 @@ public class ProjectileFactorySystem extends EntitySystem {
     public Entity createProjectileForward(PositionComponent startPosition, VelocityComponent parentVelocity, ProjectileType type, float dir) {
         PositionComponent position = engine.createComponent(PositionComponent.class);
         position.set(startPosition);
-        
+
         SizeComponent size = engine.createComponent(SizeComponent.class);
         BoundsComponent bounds = engine.createComponent(BoundsComponent.class);
         VelocityComponent velocity = engine.createComponent(VelocityComponent.class);

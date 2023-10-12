@@ -1,4 +1,4 @@
-package com.gdx.chronoslime.ecs.passive.types.enums;
+package com.gdx.chronoslime.ecs.types.enums;
 
 public enum ItemBuffId {
     DAMAGE,

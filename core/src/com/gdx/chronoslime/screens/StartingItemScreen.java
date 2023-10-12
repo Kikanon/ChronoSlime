@@ -14,13 +14,13 @@ import com.gdx.chronoslime.ChronoSlimeGame;
 import com.gdx.chronoslime.assets.AssetDescriptors;
 import com.gdx.chronoslime.util.GdxUtils;
 
-public class MenuScreen extends ScreenAdapter {
+public class StartingItemScreen extends ScreenAdapter {
 
     private final Stage stage;
     private ChronoSlimeGame game;
     private Skin uiSkin;
 
-    public MenuScreen(final ChronoSlimeGame game) {
+    public StartingItemScreen(final ChronoSlimeGame game) {
 
         AssetManager assetManager = game.getAssetManager();
 
@@ -37,34 +37,11 @@ public class MenuScreen extends ScreenAdapter {
         Table screen = new Table();
         screen.defaults().pad(20);
 
-        TextButton playButton = new TextButton("Play", uiSkin);
-        TextButton helpButton = new TextButton("Help", uiSkin);
-        TextButton pickButton = new TextButton("Pick starting item", uiSkin);
-        TextButton leaderboardButton = new TextButton("Best score", uiSkin);
-        TextButton exitButton = new TextButton("Exit", uiSkin);
+        // Create a button
+        TextButton button = new TextButton("Play", uiSkin);
+        TextButton button2 = new TextButton("Exit", uiSkin);
 
-        playButton.addListener(new InputListener() {
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                game.changeScreen(new GameScreen(game));
-                return true;
-            }
-        });
-        helpButton.addListener(new InputListener() {
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                game.changeScreen(new HelpScreen(game));
-                return true;
-            }
-        });
-        pickButton.addListener(new InputListener() {
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                game.changeScreen(new StartingItemScreen(game));
-                return true;
-            }
-        });
-        leaderboardButton.addListener(new InputListener() {
+        button.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 game.changeScreen(new GameScreen(game));
@@ -72,7 +49,7 @@ public class MenuScreen extends ScreenAdapter {
             }
         });
 
-        exitButton.addListener(new InputListener() {
+        button2.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 System.exit(0);
@@ -81,8 +58,8 @@ public class MenuScreen extends ScreenAdapter {
         });
 
 
-        screen.add(playButton).row();
-        screen.add(exitButton).row();
+        screen.add(button).row();
+        screen.add(button2).row();
         screen.setFillParent(true);
 
         return screen;

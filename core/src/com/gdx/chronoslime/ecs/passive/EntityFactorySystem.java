@@ -24,7 +24,7 @@ import com.gdx.chronoslime.ecs.component.movement.FollowPlayerComponent;
 import com.gdx.chronoslime.ecs.component.movement.PositionComponent;
 import com.gdx.chronoslime.ecs.component.movement.VelocityComponent;
 import com.gdx.chronoslime.ecs.component.movement.WorldWrapComponent;
-import com.gdx.chronoslime.ecs.passive.types.EnemyType;
+import com.gdx.chronoslime.ecs.types.EnemyType;
 import com.gdx.chronoslime.managers.GameManager;
 
 import java.util.MissingResourceException;
@@ -70,7 +70,7 @@ public class EntityFactorySystem extends EntitySystem {
         WorldWrapComponent worldWrap = engine.createComponent(WorldWrapComponent.class);
 
         TextureComponent texture = engine.createComponent(TextureComponent.class);
-        texture.animation = new Animation<TextureRegion>(0.44f, gamePlayAtlas.findRegions(RegionNames.PLAYER), Animation.PlayMode.LOOP);
+        texture.animation = new Animation<TextureRegion>(0.2f, gamePlayAtlas.findRegions(RegionNames.PLAYER), Animation.PlayMode.LOOP);
 
         ZOrderComponent zOrder = engine.createComponent(ZOrderComponent.class);
         zOrder.z = ZOrder.PLAYER.getZ();
@@ -119,7 +119,7 @@ public class EntityFactorySystem extends EntitySystem {
 
         int numFrames = gamePlayAtlas.findRegions(type.spriteName).size;
         if (numFrames > 1) {
-            texture.animation = new Animation<TextureRegion>(0.44f, gamePlayAtlas.findRegions(type.spriteName), Animation.PlayMode.LOOP);
+            texture.animation = new Animation<TextureRegion>(0.2f, gamePlayAtlas.findRegions(type.spriteName), Animation.PlayMode.LOOP);
         } else if (numFrames == 1) {
             texture.texture = gamePlayAtlas.findRegion(type.spriteName);
         } else {

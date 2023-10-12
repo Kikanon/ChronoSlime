@@ -1,6 +1,6 @@
-package com.gdx.chronoslime.ecs.passive.types;
+package com.gdx.chronoslime.ecs.types;
 
-import com.gdx.chronoslime.ecs.passive.types.enums.SpawnFuncId;
+import com.gdx.chronoslime.ecs.types.enums.SpawnFuncId;
 
 public class ProjectileType extends ItemType {
     public SpawnFuncId spawnFuncId;

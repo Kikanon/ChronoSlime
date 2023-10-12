@@ -8,7 +8,6 @@ import com.gdx.chronoslime.config.GameplayConfig;
 import com.gdx.chronoslime.ecs.component.identification.PlayerComponent;
 import com.gdx.chronoslime.ecs.component.movement.PositionComponent;
 import com.gdx.chronoslime.ecs.component.util.Mappers;
-import com.gdx.chronoslime.ecs.passive.TiledSystem;
 import com.gdx.chronoslime.managers.GameManager;
 
 public class CameraMovementSystem extends IteratingSystem {
@@ -17,7 +16,6 @@ public class CameraMovementSystem extends IteratingSystem {
             PositionComponent.class,
             PlayerComponent.class
     ).get();
-    TiledSystem tiledSystem;
 
     public CameraMovementSystem() {
         super(FAMILY);
@@ -26,7 +24,6 @@ public class CameraMovementSystem extends IteratingSystem {
     @Override
     public void addedToEngine(Engine engine) {
         super.addedToEngine(engine);
-        tiledSystem = engine.getSystem(TiledSystem.class);
     }
 
     @Override

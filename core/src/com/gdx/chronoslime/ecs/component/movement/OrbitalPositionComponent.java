@@ -5,13 +5,9 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Pool;
 
 public class OrbitalPositionComponent implements Component, Pool.Poolable {
-
     public float rDistance = 10f;
-
     public float innerTime = 0f;
-
     public float speed = 1f;
-
     // true -> counter clockwise, false -> clockwise
     public boolean direction = true;
 

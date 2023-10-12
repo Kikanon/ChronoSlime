@@ -2,9 +2,9 @@ package com.gdx.chronoslime.config;
 
 import com.badlogic.gdx.utils.Array;
 import com.gdx.chronoslime.assets.RegionNames;
-import com.gdx.chronoslime.ecs.passive.types.ItemBuffType;
-import com.gdx.chronoslime.ecs.passive.types.ProjectileType;
-import com.gdx.chronoslime.ecs.passive.types.enums.SpawnFuncId;
+import com.gdx.chronoslime.ecs.types.ItemBuffType;
+import com.gdx.chronoslime.ecs.types.ProjectileType;
+import com.gdx.chronoslime.ecs.types.enums.SpawnFuncId;
 
 public class GameplayConfig {
     public static final float PLAYER_SIZE = 32f;

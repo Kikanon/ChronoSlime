@@ -12,14 +12,14 @@ import com.gdx.chronoslime.ChronoSlimeGame;
 import com.gdx.chronoslime.assets.RegionNames;
 import com.gdx.chronoslime.config.GameConfig;
 import com.gdx.chronoslime.config.GameplayConfig;
-import com.gdx.chronoslime.ecs.passive.types.EnemyType;
-import com.gdx.chronoslime.ecs.passive.types.GameDataType;
-import com.gdx.chronoslime.ecs.passive.types.ItemBuffType;
-import com.gdx.chronoslime.ecs.passive.types.ItemType;
-import com.gdx.chronoslime.ecs.passive.types.LevelType;
-import com.gdx.chronoslime.ecs.passive.types.ProjectileType;
-import com.gdx.chronoslime.ecs.passive.types.Wave;
-import com.gdx.chronoslime.ecs.passive.types.enums.GameState;
+import com.gdx.chronoslime.ecs.types.EnemyType;
+import com.gdx.chronoslime.ecs.types.GameDataType;
+import com.gdx.chronoslime.ecs.types.ItemBuffType;
+import com.gdx.chronoslime.ecs.types.ItemType;
+import com.gdx.chronoslime.ecs.types.LevelType;
+import com.gdx.chronoslime.ecs.types.ProjectileType;
+import com.gdx.chronoslime.ecs.types.Wave;
+import com.gdx.chronoslime.ecs.types.enums.GameState;
 import com.gdx.chronoslime.screens.GameScreen;
 
 import java.util.Random;
@@ -56,6 +56,11 @@ public class GameManager {
         preferences = Gdx.app.getPreferences(ChronoSlimeGame.class.getSimpleName());
     }
 
+    public void writeFloat(String key, float value) {
+        preferences.putFloat(key, value);
+        preferences.flush();
+    }
+
     public boolean gameOver() {
         return false;
     }
@@ -65,7 +70,7 @@ public class GameManager {
     }
 
     public void writeSettings() {
-        FileHandle outFile = Gdx.files.absolute("J:\\Projects\\6.Semester - Diploma\\ChronoSlime\\assets\\data\\outData.json");
+        //FileHandle outFile = Gdx.files.absolute("J:\\Projects\\6.Semester - Diploma\\ChronoSlime\\assets\\data\\outData.json");
         GameDataType data = new GameDataType();
         EnemyType tempEnemy = new EnemyType();
         tempEnemy.damage = 20;
@@ -82,10 +87,13 @@ public class GameManager {
         tempLevel.waves = new Wave[]{tempWave, tempWave};
         data.enemyTypes = new EnemyType[]{tempEnemy, tempEnemy};
         data.levels = new LevelType[]{tempLevel, tempLevel};
+
+        Json json = new Json();
+        FileHandle outFile = Gdx.files.absolute("J:\\Projects\\6.Semester - Diploma\\ChronoSlime\\assets\\data\\outData.json");
         json.setOutputType(JsonWriter.OutputType.json);
-
-
         outFile.writeString(json.prettyPrint(data), false);
+
+
     }
 
     public void readSettings() {
@@ -135,26 +143,20 @@ public class GameManager {
     public void addItem(ItemType item) {
         gameState = GameState.PLAY;
         currentLevel += 1;
-        if (item.itemName.equals("Heal")) {
-            System.out.println("healed");
-        } else if (item.itemName.equals("Score")) {
-            System.out.println("score increased");
-        } else {
-            if (item.getClass() == ItemBuffType.class) {
-                if (playerItems.contains((ItemBuffType) item, true)) {
-                    item.level += 1;
-                } else {
-                    playerItems.add((ItemBuffType) item);
-                    obtainableItems.removeValue(item, false);
-                }
+        if (item.getClass() == ItemBuffType.class) {
+            if (playerItems.contains((ItemBuffType) item, true)) {
+                item.level += 1;
+            } else {
+                playerItems.add((ItemBuffType) item);
+                obtainableItems.removeValue(item, false);
+            }
 
-            } else if (item.getClass() == ProjectileType.class) {
-                if (playerWeapons.contains((ProjectileType) item, true)) {
-                    item.level += 1;
-                } else {
-                    playerWeapons.add((ProjectileType) item);
-                    obtainableItems.removeValue(item, false);
-                }
+        } else if (item.getClass() == ProjectileType.class) {
+            if (playerWeapons.contains((ProjectileType) item, true)) {
+                item.level += 1;
+            } else {
+                playerWeapons.add((ProjectileType) item);
+                obtainableItems.removeValue(item, false);
             }
         }
     }

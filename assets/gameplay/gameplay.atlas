@@ -6,21 +6,21 @@ filter: Nearest, Nearest
 repeat: none
 button
   rotate: false
-  xy: 164, 199
+  xy: 650, 361
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 obstacle
   rotate: false
-  xy: 164, 199
+  xy: 650, 361
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 enemy
   rotate: false
-  xy: 326, 361
+  xy: 488, 37
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
@@ -55,35 +55,63 @@ knifeMouse
   index: 3
 player
   rotate: false
-  xy: 164, 69
+  xy: 650, 231
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: 0
 player
   rotate: false
-  xy: 456, 361
+  xy: 780, 361
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: 1
 player
   rotate: false
-  xy: 586, 361
+  xy: 780, 231
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: 2
 player
   rotate: false
-  xy: 716, 361
+  xy: 650, 101
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: 3
+playerSlime
+  rotate: false
+  xy: 164, 167
+  size: 160, 160
+  orig: 160, 160
+  offset: 0, 0
+  index: 0
+playerSlime
+  rotate: false
+  xy: 326, 329
+  size: 160, 160
+  orig: 160, 160
+  offset: 0, 0
+  index: 1
+playerSlime
+  rotate: false
+  xy: 326, 329
+  size: 160, 160
+  orig: 160, 160
+  offset: 0, 0
+  index: 3
+playerSlime
+  rotate: false
+  xy: 164, 5
+  size: 160, 160
+  orig: 160, 160
+  offset: 0, 0
+  index: 2
 projectile
   rotate: false
-  xy: 846, 361
+  xy: 780, 101
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
@@ -95,16 +123,44 @@ render_pixel
   orig: 1, 1
   offset: 0, 0
   index: -1
+swordSkeleton
+  rotate: false
+  xy: 326, 167
+  size: 160, 160
+  orig: 160, 160
+  offset: 0, 0
+  index: 0
+swordSkeleton
+  rotate: false
+  xy: 488, 329
+  size: 160, 160
+  orig: 160, 160
+  offset: 0, 0
+  index: 1
+swordSkeleton
+  rotate: false
+  xy: 326, 5
+  size: 160, 160
+  orig: 160, 160
+  offset: 0, 0
+  index: 2
+swordSkeleton
+  rotate: false
+  xy: 488, 167
+  size: 160, 160
+  orig: 160, 160
+  offset: 0, 0
+  index: 3
 tile_background
   rotate: false
-  xy: 164, 35
+  xy: 910, 457
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 tile_obstacle
   rotate: false
-  xy: 976, 457
+  xy: 910, 423
   size: 32, 32
   orig: 32, 32
   offset: 0, 0

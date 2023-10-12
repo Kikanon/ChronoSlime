@@ -31,8 +31,6 @@ import com.gdx.chronoslime.ecs.passive.ProjectileFactorySystem;
 import com.gdx.chronoslime.ecs.passive.SoundSystem;
 import com.gdx.chronoslime.ecs.passive.StartUpSystem;
 import com.gdx.chronoslime.ecs.passive.TiledSystem;
-import com.gdx.chronoslime.ecs.passive.types.ItemType;
-import com.gdx.chronoslime.ecs.passive.types.enums.GameState;
 import com.gdx.chronoslime.ecs.system.CollisionSystem;
 import com.gdx.chronoslime.ecs.system.EndGameSystem;
 import com.gdx.chronoslime.ecs.system.cleanup.HealthCleanupSystem;
@@ -56,6 +54,8 @@ import com.gdx.chronoslime.ecs.system.spawning.DeathParticleSpawnSystem;
 import com.gdx.chronoslime.ecs.system.spawning.EnemySpawnSystem;
 import com.gdx.chronoslime.ecs.system.spawning.LevelSystem;
 import com.gdx.chronoslime.ecs.system.spawning.ProjectileSpawnSystem;
+import com.gdx.chronoslime.ecs.types.ItemType;
+import com.gdx.chronoslime.ecs.types.enums.GameState;
 import com.gdx.chronoslime.managers.GameManager;
 import com.gdx.chronoslime.util.GdxUtils;
 
@@ -163,22 +163,21 @@ public class GameScreen extends ScreenAdapter {
         engine.addSystem(new StartUpSystem());
         engine.addSystem(new LevelSystem());
         engine.addSystem(new EnemySpawnSystem());
-        engine.addSystem(new ProjectileSpawnSystem());
 
         engine.addSystem(new FollowPlayerSystem());
-
         engine.addSystem(new CollisionSystem());
 
-
         engine.addSystem(new InputSystem());
+
+        engine.addSystem(new ProjectileSpawnSystem());
+
         engine.addSystem(new GravitySystem());
         engine.addSystem(new WorldWrapSystem());
-        engine.addSystem(new OrbitalMovementSystem());
-        engine.addSystem(new MovementSystem());
 
+        engine.addSystem(new MovementSystem());
+        engine.addSystem(new OrbitalMovementSystem());
 
         engine.addSystem(new DeathParticleSpawnSystem());
-
 
         engine.addSystem(new CameraMovementSystem());
 

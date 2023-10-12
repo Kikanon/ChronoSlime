@@ -2,7 +2,7 @@ package com.gdx.chronoslime.ecs.component.identification;
 
 import com.badlogic.ashley.core.Component;
 import com.badlogic.gdx.utils.Pool;
-import com.gdx.chronoslime.ecs.passive.types.EnemyType;
+import com.gdx.chronoslime.ecs.types.EnemyType;
 
 public class EnemyComponent implements Component, Pool.Poolable {
     public float damage;

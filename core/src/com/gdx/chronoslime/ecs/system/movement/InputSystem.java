@@ -13,7 +13,6 @@ import com.gdx.chronoslime.ecs.component.movement.PositionComponent;
 import com.gdx.chronoslime.ecs.component.movement.VelocityComponent;
 import com.gdx.chronoslime.ecs.component.movement.WorldWrapComponent;
 import com.gdx.chronoslime.ecs.component.util.Mappers;
-import com.gdx.chronoslime.ecs.passive.EntityFactorySystem;
 import com.gdx.chronoslime.managers.GameManager;
 
 
@@ -26,7 +25,6 @@ public class InputSystem extends IteratingSystem {
             PositionComponent.class,
             TextureComponent.class
     ).get();
-    private EntityFactorySystem factory;
 
     public InputSystem() {
         super(FAMILY);
@@ -35,7 +33,6 @@ public class InputSystem extends IteratingSystem {
     @Override
     public void addedToEngine(Engine engine) {
         super.addedToEngine(engine);
-        this.factory = engine.getSystem(EntityFactorySystem.class);
     }
 
     @Override

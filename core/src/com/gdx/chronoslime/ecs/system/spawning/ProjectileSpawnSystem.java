@@ -10,7 +10,7 @@ import com.gdx.chronoslime.ecs.component.movement.PositionComponent;
 import com.gdx.chronoslime.ecs.component.movement.VelocityComponent;
 import com.gdx.chronoslime.ecs.component.util.Mappers;
 import com.gdx.chronoslime.ecs.passive.ProjectileFactorySystem;
-import com.gdx.chronoslime.ecs.passive.types.ProjectileType;
+import com.gdx.chronoslime.ecs.types.ProjectileType;
 import com.gdx.chronoslime.managers.GameManager;
 
 

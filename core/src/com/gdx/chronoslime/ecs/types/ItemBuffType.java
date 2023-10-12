@@ -1,6 +1,6 @@
-package com.gdx.chronoslime.ecs.passive.types;
+package com.gdx.chronoslime.ecs.types;
 
-import com.gdx.chronoslime.ecs.passive.types.enums.ItemBuffId;
+import com.gdx.chronoslime.ecs.types.enums.ItemBuffId;
 
 public class ItemBuffType extends ItemType {
     public ItemBuffId buffId;

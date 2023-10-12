@@ -8,7 +8,7 @@ import com.gdx.chronoslime.ecs.component.identification.PlayerComponent;
 import com.gdx.chronoslime.ecs.component.lifetime.HealthComponent;
 import com.gdx.chronoslime.ecs.component.util.Mappers;
 import com.gdx.chronoslime.ecs.passive.ParticleFactorySystem;
-import com.gdx.chronoslime.ecs.passive.types.enums.GameState;
+import com.gdx.chronoslime.ecs.types.enums.GameState;
 import com.gdx.chronoslime.managers.GameManager;
 
 

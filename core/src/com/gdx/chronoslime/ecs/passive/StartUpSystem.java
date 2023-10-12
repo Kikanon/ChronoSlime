@@ -1,11 +1,9 @@
 package com.gdx.chronoslime.ecs.passive;
 
 import com.badlogic.ashley.core.Engine;
-import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.EntitySystem;
 
 public class StartUpSystem extends EntitySystem {
-    public Entity player;
     private EntityFactorySystem factory;
 
     public StartUpSystem() {
@@ -19,6 +17,6 @@ public class StartUpSystem extends EntitySystem {
     }
 
     private void startUp() {
-        player = factory.createPlayer();
+        factory.createPlayer();
     }
 }

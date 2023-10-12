@@ -15,9 +15,7 @@ import com.gdx.chronoslime.ecs.component.util.Mappers;
 
 public class FollowPlayerSystem extends IteratingSystem {
     private static final Family FOLLOWER_FAMILY = Family.all(
-
             PositionComponent.class,
-
             VelocityComponent.class,
             FollowPlayerComponent.class
     ).get();
